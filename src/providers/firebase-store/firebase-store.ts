@@ -20,9 +20,11 @@ export class FirebaseStoreProvider {
 }
 @Injectable()
 export class AuthService {
-
-  constructor(private afAuth: AngularFireAuth){
-
+  public user: firebase.User;
+  constructor(public afAuth: AngularFireAuth) {
+    afAuth.authState.subscribe(user => {			
+			this.user = user;
+		});
   }
   login() {
     this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
@@ -30,6 +32,20 @@ export class AuthService {
   logout() {
     this.afAuth.auth.signOut();
   }
+  signUp(credentials) {
+		return this.afAuth.auth.createUserWithEmailAndPassword(credentials.email,credentials.password);
+	}
 
+	get authenticated(): boolean {
+		return this.user !== null;
+	}
+
+	getEmail() {
+		return this.user && this.user.email;
+	}
+
+	getUID(){
+		return this.user && this.user.uid;
+	}
 
 } 
