@@ -15,6 +15,15 @@
   <button ion-button (click)="signup()">
     Sign up &nbsp;
     <ion-icon name="person-add"></ion-icon>
+    <div *ngIf="auth.authenticated == true">
+      <p>
+        Welcome, <b>{{auth.getEmail()}}</b> 
+      </p>
+      <button ion-button (click)="logout()">Log Out</button>
+    </div>
+    <div *ngElse>
+      <button ion-button (click)="login()">Log In</button>
+    </div>
 
   </button>
 </ion-content>
