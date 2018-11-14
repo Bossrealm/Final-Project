@@ -22,4 +22,7 @@ export class HomePage {
   signup() {
     this.navCtrl.push("SignupPage");
   }
+    logout(){
+    this.auth.signOut();
+  }
 }

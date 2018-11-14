@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AuthService } from '../../providers/firebase-store/firebase-store';
 
 /**
  * Generated class for the MainPage page.
@@ -15,11 +16,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class MainPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthService) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MainPage');
   }
-
+  logout(){
+    this.auth.signOut();
+  }
 }

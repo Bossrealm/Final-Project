@@ -21,8 +21,7 @@ export class FirebaseStoreProvider {
 @Injectable()
 export class AuthService {
   public user: firebase.User;
-  constructor(public afAuth: AngularFireAuth, private readonly afs: AngularFirestore) {
-    
+  constructor(public afAuth: AngularFireAuth, ) {
     afAuth.authState.subscribe(user => {			
 			this.user = user;
 		});
@@ -47,19 +46,9 @@ export class AuthService {
 
 	getUID(){
 		return this.user && this.user.uid;
+  }
+  signOut(): Promise<void> {
+		return this.afAuth.auth.signOut();
 	}
-  addNote(user, data){
-    return new Promise<any>((resolve, reject) => {
-      this.afs.collection('/notes').add({
-        title: data.title,
-        body: data.body,
-        uid: user.uid
-      }).then(
-        (res) => {
-          resolve(res)
-        },
-        err => reject(err)
-      )
-      })
-} 
+  
 }

@@ -21,8 +21,7 @@ export class MyApp {
     });
     this.auth.afAuth.authState.subscribe(
       user => {
-console.log("hfjdk");
-console.log(user);
+
         if (user) {
           this.rootPage = MainPage;
         } else {
@@ -33,7 +32,9 @@ console.log(user);
         this.rootPage = HomePage;
       }
     );
+    
+    
   }
-
+    
 }
 
