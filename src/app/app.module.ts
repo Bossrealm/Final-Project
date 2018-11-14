@@ -10,6 +10,8 @@ import { FirebaseStoreProvider, AuthService } from '../providers/firebase-store/
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environment/environment';
+import { MainPage } from '../pages/main/main';
+import { MainPageModule } from '../pages/main/main.module';
 
 @NgModule({
   declarations: [
@@ -20,12 +22,14 @@ import { environment } from '../environment/environment';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    MainPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    MainPage
   ],
   providers: [
     StatusBar,
