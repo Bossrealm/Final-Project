@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { LoginPage } from './login';
+import { TextPage } from './text';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 
 @NgModule({
   declarations: [
-    LoginPage,
+    TextPage,
   ],
   imports: [
-    IonicPageModule.forChild(LoginPage),
+    IonicPageModule.forChild(TextPage),
     NgxErrorsModule
   ],
 })
-export class LoginPageModule {}
+export class TextPageModule {}

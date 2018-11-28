@@ -12,6 +12,7 @@ import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environment/environment';
 import { MainPage } from '../pages/main/main';
 import { MainPageModule } from '../pages/main/main.module';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MainPageModule } from '../pages/main/main.module';
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    AngularFirestoreModule,
     MainPageModule
   ],
   bootstrap: [IonicApp],
