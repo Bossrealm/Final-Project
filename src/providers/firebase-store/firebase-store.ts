@@ -2,10 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
+import * as firebase from 'firebase';
 import AuthProvider = firebase.auth.AuthProvider;
-
-
+import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class FirebaseStoreProvider {
@@ -21,7 +21,8 @@ export class FirebaseStoreProvider {
     return new Promise<any>((resolve, reject) => {
       this.afs.collection('/messages').add({
         text: data.text,
-        uid: user.uid
+        uid: user.uid,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
       }).then(
         (res) => {
           resolve(res)
@@ -30,6 +31,17 @@ export class FirebaseStoreProvider {
       )
       })
     }
+
+  listText(){
+    return this.afs.collection('/messages', ref => ref.orderBy('createdAt')).snapshotChanges().pipe(map(actions => {
+      return actions.map( item=> {
+        const id = item.payload.doc.id;
+          const data = item.payload.doc.data();
+          data['id'] = id;
+          return data;
+      });
+    })); 
+  }
 
 }
 @Injectable()

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AuthService } from '../../providers/firebase-store/firebase-store';
-
+import { AuthService, FirebaseStoreProvider } from '../../providers/firebase-store/firebase-store';
+import { Observable } from 'rxjs/Observable';
 /**
  * Generated class for the MainPage page.
  *
@@ -16,7 +16,10 @@ import { AuthService } from '../../providers/firebase-store/firebase-store';
 })
 export class MainPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: AuthService) {
+  messages: Observable<any[]>;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public Data: FirebaseStoreProvider, private auth: AuthService) {
+    this.messages = Data.listText();
   }
 
   ionViewDidLoad() {
