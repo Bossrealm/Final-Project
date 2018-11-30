@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { RoomPage } from './room';
+import { JoinPage } from './join';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 
 @NgModule({
   declarations: [
-    RoomPage,
+    JoinPage,
   ],
   imports: [
-    IonicPageModule.forChild(RoomPage),
+    IonicPageModule.forChild(JoinPage),
     NgxErrorsModule
   ],
 })
-export class RoomPageModule {}
+export class JoinPageModule {}
