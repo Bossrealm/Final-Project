@@ -7,12 +7,28 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Join Room</ion-title>
+    <ion-title>Available Rooms</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <div *ngIf="currentroom != null">
+    <b><i>{{currentroom.data().name}}</i></b><button ion-button (click)="this.navCtrl.push('JoinPage')">Leave Room</button>
+    <br>
+    @{{username}}
+    
+    
+  </div>
+  <div *ngIf="currentroom == null">
+<ion-list>
+    <ion-item *ngFor="let room of rooms | async">
+        <p>{{room.createdAt | date: 'EEEE, h:mm a'}}</p>
+        <p><b>Room name : {{room.name}}</b></p>
+        <p>Owner : <i>{{room.email}}</i></p>
+        <button ion-button (click)="joinRoom(room.id)"> Join </button>
+      </ion-item>
+</ion-list>
+</div>
 </ion-content>

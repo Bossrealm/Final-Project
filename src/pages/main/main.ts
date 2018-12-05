@@ -17,9 +17,11 @@ import { Observable } from 'rxjs/Observable';
 export class MainPage {
 
   messages: Observable<any[]>;
+  // rooms: Observable<any[]>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public Data: FirebaseStoreProvider, private auth: AuthService) {
     this.messages = Data.listText();
+    // this.rooms = Data.listRoom();
   }
 
   ionViewDidLoad() {

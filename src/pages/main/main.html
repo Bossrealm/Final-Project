@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Main</ion-title>
+    <ion-title>Home</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -22,11 +22,18 @@
         Log Out
       </button>
       <button ion-button (click)="this.navCtrl.push('RoomPage')">Create Room</button>
-      <button ion-button (click)="this.navCtrl.push('JoinPage')">Join Room</button>
+      <button ion-button (click)="this.navCtrl.push('JoinPage')">Rooms</button>
       <ion-list>
           <ion-item *ngFor="let message of messages | async">
             <p>{{message.createdAt | date: 'EEEE, h:mm a'}}</p>
-            <p>{{message.text}}</p>
+            <p><b>{{message.email}} :</b>
+            
+               <br> {{message.text}}
+            </p>
           </ion-item>
+          <!-- <ion-item *ngFor="let room of rooms | async">
+            <p>{{room.createdAt | date: 'EEEE, h:mm a'}}</p>
+            <p>{{room.name}}</p>
+          </ion-item> -->
         </ion-list>
 </ion-content>

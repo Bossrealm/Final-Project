@@ -14,5 +14,27 @@
 
 
 <ion-content padding>
+  <form (ngSubmit)="addRoom()" [formGroup]="roomForm">
+    <ion-list inset>
 
+
+      <ion-item [ngClass]="{ invalid: nameErrors.hasError('*', ['touched']) }">
+        <ion-input type="text" placeholder="Room name" formControlName="name"></ion-input>
+      </ion-item>
+
+      <div ngxErrors="name" #nameErrors="ngxErrors">
+        <div [ngxError]="['name', 'required']" [when]="touched">Please enter some content</div>
+      </div>
+      <ion-item>
+        <ion-input type="text" placeholder="Password" formControlName="password"></ion-input>
+      </ion-item>
+    </ion-list>
+
+    <div padding-horizontal>
+      <div class="form-error">{{loginError}}</div>
+
+      <button ion-button (click)="this.navCtrl.push('MainPage')"full type="submit" [disabled]="!roomForm.valid">Create Room</button>
+    </div>
+  </form>
 </ion-content>
+

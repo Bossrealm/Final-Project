@@ -22,6 +22,7 @@ export class FirebaseStoreProvider {
       this.afs.collection('/messages').add({
         text: data.text,
         uid: user.uid,
+        email: user.email,
         createdAt: firebase.firestore.FieldValue.serverTimestamp()
       }).then(
         (res) => {
@@ -42,7 +43,43 @@ export class FirebaseStoreProvider {
       });
     })); 
   }
+  addRoom(user, data){
+    console.log(data);
+    console.log(user);
+    return new Promise<any>((resolve, reject) => {
+      this.afs.collection('/rooms').add({
+        name: data.name,
+        uid: user.uid,
+        email: user.email,
+        password: data.password,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(
+        (res) => {
+          resolve(res)
+        },
+        err => reject(err)
+      )
+      })
+    }
+    listRoom(){
+      return this.afs.collection('/rooms', ref => ref.orderBy('createdAt')).snapshotChanges().pipe(map(actions => {
+        return actions.map( item=> {
+          const id = item.payload.doc.id;
+            const data = item.payload.doc.data();
+            data['id'] = id;
+            return data;
+        });
+      })); 
+    }
+    getRoom(roomid) : Promise<firebase.firestore.DocumentSnapshot>{
+      var room = this.afs.firestore.doc('/rooms/' + roomid).get().then(
+        doc => {
 
+          return doc;
+        }      
+      )
+      return room;
+    }
 }
 @Injectable()
 export class AuthService {
