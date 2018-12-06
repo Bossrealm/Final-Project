@@ -30,6 +30,6 @@ export class TextPage {
   addText(){
     let data = this.textForm.value;
     console.log(data);
-    this.fbData.addText(this.auth.user, data);
+    //this.fbData.addText(this.auth.user, data);
   }
 }

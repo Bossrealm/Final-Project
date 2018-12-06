@@ -6,6 +6,7 @@ import * as firebase from 'firebase';
 import AuthProvider = firebase.auth.AuthProvider;
 import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
+import { RoomPage } from '../../pages/room/room';
 
 @Injectable()
 export class FirebaseStoreProvider {
@@ -17,9 +18,9 @@ export class FirebaseStoreProvider {
   listMovies(){
     return this.afs.collection('/movies').valueChanges();
   }
-  addText(user, data){
+  addText(user, data, roomid){
     return new Promise<any>((resolve, reject) => {
-      this.afs.collection('/messages').add({
+      this.afs.collection('/rooms/' + roomid + '/messages').add({
         text: data.text,
         uid: user.uid,
         email: user.email,
@@ -33,8 +34,8 @@ export class FirebaseStoreProvider {
       })
     }
 
-  listText(){
-    return this.afs.collection('/messages', ref => ref.orderBy('createdAt')).snapshotChanges().pipe(map(actions => {
+  listText(roomid){
+    return this.afs.collection('/rooms/' + roomid + '/messages', ref => ref.orderBy('createdAt')).snapshotChanges().pipe(map(actions => {
       return actions.map( item=> {
         const id = item.payload.doc.id;
           const data = item.payload.doc.data();

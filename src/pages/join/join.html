@@ -18,8 +18,39 @@
     <b><i>{{currentroom.data().name}}</i></b><button ion-button (click)="this.navCtrl.push('JoinPage')">Leave Room</button>
     <br>
     @{{username}}
+    <ion-item *ngFor="let message of messages | async">
+            <p>{{message.createdAt | date: 'EEEE, h:mm a'}}</p>
+            <p><b>{{message.email}} :</b>
+            
+               <br> {{message.text}}
+            </p>
+          </ion-item>
+    <ion-footer>
+      <ion-toolbar>
+        <ion-title>Message</ion-title>
+        <form (ngSubmit)="addText()" [formGroup]="textForm">
+          <ion-list inset>
+      
     
-    
+      
+            <ion-item [ngClass]="{ invalid: textErrors.hasError('*', ['touched']) }">
+              <ion-input type="text" placeholder="Say something!" formControlName="text"></ion-input>
+            </ion-item>
+      
+            <div ngxErrors="text" #textErrors="ngxErrors">
+              <div [ngxError]="['text', 'required']" [when]="touched">Please enter some content</div>
+            </div>
+          </ion-list>
+      
+          <div padding-horizontal>
+            <div class="form-error">{{loginError}}</div>
+      
+            <button ion-button full type="submit" [disabled]="!textForm.valid">Send Message</button>
+          </div>
+        </form>
+      </ion-toolbar>
+    </ion-footer>
+        
   </div>
   <div *ngIf="currentroom == null">
 <ion-list>
@@ -32,3 +63,28 @@
 </ion-list>
 </div>
 </ion-content>
+<!-- <ion-footer>
+  <ion-toolbar>
+    <ion-title>Message</ion-title>
+    <form (ngSubmit)="addText()" [formGroup]="textForm">
+      <ion-list inset>
+  
+
+  
+        <ion-item [ngClass]="{ invalid: textErrors.hasError('*', ['touched']) }">
+          <ion-input type="text" placeholder="Enter here" formControlName="text"></ion-input>
+        </ion-item>
+  
+        <div ngxErrors="text" #textErrors="ngxErrors">
+          <div [ngxError]="['text', 'required']" [when]="touched">Please enter some content</div>
+        </div>
+      </ion-list>
+  
+      <div padding-horizontal>
+        <div class="form-error">{{loginError}}</div>
+  
+        <button ion-button full type="submit" [disabled]="!textForm.valid">Add Note</button>
+      </div>
+    </form>
+  </ion-toolbar>
+</ion-footer> -->

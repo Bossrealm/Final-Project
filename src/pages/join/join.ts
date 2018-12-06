@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { FirebaseStoreProvider, AuthService } from '../../providers/firebase-store/firebase-store';
 import { database } from 'firebase';
 import * as firebase from 'firebase'
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 
 /**
  * Generated class for the JoinPage page.
@@ -21,10 +22,14 @@ export class JoinPage {
   rooms: Observable<any[]>;
   currentroom: firebase.firestore.DocumentSnapshot;
   username: any;
+  textForm: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public Data: FirebaseStoreProvider, private auth: AuthService, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public fb: FormBuilder, public navParams: NavParams, public Data: FirebaseStoreProvider, private auth: AuthService, public alertCtrl: AlertController, public fbData: FirebaseStoreProvider) {
     this.rooms = Data.listRoom();
     this.currentroom = null;
+    this.textForm = fb.group({
+      text: ['', Validators.required]
+  });
   }
 
   ionViewDidLoad() {
@@ -75,5 +80,10 @@ console.log(this.currentroom);
 }
 leaveRoom(){
   this.currentroom = null;
+}
+addText(){
+  let data = this.textForm.value;
+  console.log(data);
+  this.fbData.addText(this.auth.user, data, this.currentroom.id);
 }
 }
