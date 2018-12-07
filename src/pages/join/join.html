@@ -18,9 +18,9 @@
     <b><i>{{currentroom.data().name}}</i></b><button ion-button (click)="this.navCtrl.push('JoinPage')">Leave Room</button>
     <br>
     @{{username}}
-    <div class = 'messages'>
-    <ion-item *ngFor="let message of messages | async">
-      <div *ngIf="message.uid==user.uid">hello</div>
+    <div class = 'messages' #list [scrollTop]="list.scrollHeight">
+    <ion-item *ngFor="let message of messages | async" [ngClass]="message.uid==user.uid ? 'mine' : 'other'">
+      <div *ngIf="message.uid==user.uid"></div>
       
             <p>{{message.createdAt | date: 'EEEE, h:mm a'}}</p>
             <p><b>{{message.email}} :</b>
