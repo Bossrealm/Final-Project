@@ -18,6 +18,7 @@
     <b><i>{{currentroom.data().name}}</i></b><button ion-button (click)="this.navCtrl.push('JoinPage')">Leave Room</button>
     <br>
     @{{username}}
+    <div class = 'messages'>
     <ion-item *ngFor="let message of messages | async">
       <div *ngIf="message.uid==user.uid">hello</div>
       
@@ -27,6 +28,7 @@
                <br> {{message.text}}
             </p>
           </ion-item>
+          </div>
     <ion-footer>
       <ion-toolbar>
         <ion-title>Message</ion-title>
