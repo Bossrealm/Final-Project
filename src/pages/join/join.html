@@ -19,6 +19,8 @@
     <br>
     @{{username}}
     <ion-item *ngFor="let message of messages | async">
+      <div *ngIf="message.uid==user.uid">hello</div>
+      
             <p>{{message.createdAt | date: 'EEEE, h:mm a'}}</p>
             <p><b>{{message.email}} :</b>
             
@@ -63,28 +65,3 @@
 </ion-list>
 </div>
 </ion-content>
-<!-- <ion-footer>
-  <ion-toolbar>
-    <ion-title>Message</ion-title>
-    <form (ngSubmit)="addText()" [formGroup]="textForm">
-      <ion-list inset>
-  
-
-  
-        <ion-item [ngClass]="{ invalid: textErrors.hasError('*', ['touched']) }">
-          <ion-input type="text" placeholder="Enter here" formControlName="text"></ion-input>
-        </ion-item>
-  
-        <div ngxErrors="text" #textErrors="ngxErrors">
-          <div [ngxError]="['text', 'required']" [when]="touched">Please enter some content</div>
-        </div>
-      </ion-list>
-  
-      <div padding-horizontal>
-        <div class="form-error">{{loginError}}</div>
-  
-        <button ion-button full type="submit" [disabled]="!textForm.valid">Add Note</button>
-      </div>
-    </form>
-  </ion-toolbar>
-</ion-footer> -->

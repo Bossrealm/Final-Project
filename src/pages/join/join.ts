@@ -5,6 +5,7 @@ import { FirebaseStoreProvider, AuthService } from '../../providers/firebase-sto
 import { database } from 'firebase';
 import * as firebase from 'firebase'
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { User } from 'firebase/app';
 
 /**
  * Generated class for the JoinPage page.
@@ -23,6 +24,8 @@ export class JoinPage {
   currentroom: firebase.firestore.DocumentSnapshot;
   username: any;
   textForm: FormGroup;
+  messages: Observable<any[]>;
+  user: User;
 
   constructor(public navCtrl: NavController, public fb: FormBuilder, public navParams: NavParams, public Data: FirebaseStoreProvider, private auth: AuthService, public alertCtrl: AlertController, public fbData: FirebaseStoreProvider) {
     this.rooms = Data.listRoom();
@@ -30,6 +33,10 @@ export class JoinPage {
     this.textForm = fb.group({
       text: ['', Validators.required]
   });
+  this.auth.afAuth.authState.subscribe(
+    user => {        
+      this.user = user;})
+    
   }
 
   ionViewDidLoad() {
@@ -56,7 +63,8 @@ joinRoom(roomid){
             if(
               room.data().password == data.password
             ){
-            this.currentroom = room; 
+            this.currentroom = room;
+            this.messages = this.Data.listText(room.id); 
             this.username = data.name;  
           }
           else{
@@ -85,5 +93,6 @@ addText(){
   let data = this.textForm.value;
   console.log(data);
   this.fbData.addText(this.auth.user, data, this.currentroom.id);
+  this.textForm.reset();
 }
 }
